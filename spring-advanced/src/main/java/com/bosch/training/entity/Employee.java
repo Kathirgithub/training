@@ -1,10 +1,16 @@
 package com.bosch.training.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
-@Entity(name = "employee")
+@Entity
+@Table(name = "employee")
 public class Employee {
 
 	@Id
@@ -20,16 +26,27 @@ public class Employee {
 	@Column(name = "email")
 	private String email;
 	
+	@Transient
+	private String fullname;
+	
+	@OneToMany(mappedBy = "employee")
+	private Set<Payslip> payslips;
+	
+	
 
 	public Employee() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public Employee(String firstName, String lastName, String email) {
+	public Employee(int id, String firstName, String lastName, String email, String fullname, Set<Payslip> payslips) {
 		super();
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.fullname = fullname;
+		this.payslips = payslips;
 	}
 
 	public String getFirstName() {
@@ -61,6 +78,26 @@ public class Employee {
 	}
 	
 	
+	
+	
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+	
+	
+
+	public Set<Payslip> getPayslips() {
+		return payslips;
+	}
+
+	public void setPayslips(Set<Payslip> payslips) {
+		this.payslips = payslips;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";

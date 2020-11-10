@@ -7,4 +7,5 @@ import com.bosch.training.entity.Employee;
 
 @Repository
 public interface MainRepo extends JpaRepository<Employee, Integer> {
+	
 }
